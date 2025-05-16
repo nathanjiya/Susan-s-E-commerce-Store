@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Customer Login</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .login-box {
+      background: white;
+      padding: 2rem;
+      border-radius: 12px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #ff6600;
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    input {
+      width: 100%;
+      padding: 0.7rem;
+      margin-bottom: 1rem;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+    }
+
+    button {
+      background: #ff6600;
+      color: white;
+      padding: 0.8rem;
+      border: none;
+      border-radius: 8px;
+      width: 100%;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #e65c00;
+    }
+
+    .error {
+      color: red;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body>
+  
+  <div class="login-box">
+    <h2>Login</h2>
+    <form method="POST" action="/login">
+  <label for="email">Email</label>
+  <input type="email" name="email" id="email" placeholder="Enter your email" required>
+
+  <label for="username">Username</label>
+  <input type="text" name="username" id="username" placeholder="Enter Username" required>
+
+  <label for="password">Password</label>
+  <input type="password" name="password" id="password" placeholder="Enter your password" required>
+
+  <button type="submit">Login</button>
+  <p>Don't have an account? <a href="/signup">Sign up</a></p>
+</form>
+
+<!-- Flash message display -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+  {% if messages %}
+    <div class="error">
+      {% for category, message in messages %}
+        <p class="{{ category }}">{{ message }}</p>
+      {% endfor %}
+    </div>
+  {% endif %}
+{% endwith %}
+
+  </div>
+
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const errorMsg = document.getElementById('errorMsg');
+
+    // Dummy user registration for demonstration
+    // You can replace this with registration logic or backend
+    const users = JSON.parse(localStorage.getItem('users')) || [
+      { email: "test@example.com", username: "testuser", password: "123456" }
+    ];
+
+    loginForm.addEventListener('submit', function(e) {
+      e.preventDefault();
+
+      const email = document.getElementById('email').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      const matchedUser = users.find(user =>
+        user.email === email && user.username === username && user.password === password
+      );
+
+      if (matchedUser) {
+        localStorage.setItem('currentUser', JSON.stringify(matchedUser));
+        alert("Login successful!");
+        window.location.href = "/index"; // Redirect after login
+      } else {
+        errorMsg.textContent = "Invalid email, username, or password.";
+      }
+    });
+  </script>
+
+</body>
+</html>

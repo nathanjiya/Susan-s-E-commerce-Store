@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Payment - Susan's Collection</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ff6600;
+      --dark: #222;
+      --light: #f9f9f9;
+      --border: #ddd;
+      --transition: 0.3s ease;
+    }
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--light);
+      margin: 0;
+      padding: 0;
+    }
+    .container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: #fff;
+      border-radius: 12px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: var(--dark);
+    }
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+    label {
+      display: block;
+      margin-bottom: 0.5rem;
+      color: var(--dark);
+      font-weight: 500;
+    }
+    input {
+      width: 100%;
+      padding: 0.75rem;
+      font-size: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      transition: border var(--transition);
+    }
+    input:focus {
+      border-color: var(--orange);
+      outline: none;
+    }
+    .row {
+      display: flex;
+      gap: 1rem;
+    }
+    .row .form-group {
+      flex: 1;
+    }
+    .summary {
+      background: #f7f7f7;
+      padding: 1rem;
+      border-radius: 8px;
+      margin-bottom: 2rem;
+    }
+    .summary h4 {
+      margin-bottom: 1rem;
+      color: var(--dark);
+    }
+    .summary-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+      color: #444;
+    }
+    .pay-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--orange);
+      border: none;
+      color: white;
+      font-size: 1.1rem;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+    .pay-btn:hover {
+      background: #e65c00;
+    }
+    @media (max-width: 600px) {
+      .row {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Payment Details</h2>
+
+    <div class="summary">
+      <h4>Order Summary</h4>
+      <div class="summary-item">
+        <span id="item-count">Items (0)</span>
+        <span id="item-total">₦0</span>
+      </div>
+      <div class="summary-item">
+        <span>Shipping</span>
+        <span id="shipping-fee">₦0</span>
+      </div>
+      <div class="summary-item" style="font-weight: bold;">
+        <span>Total</span>
+        <span id="grand-total">₦0</span>
+      </div>
+    </div>
+
+    <form id="payment-form">
+      <div class="form-group">
+        <label for="name">Cardholder Name</label>
+        <input type="text" id="name" placeholder="e.g. Susan Johnson" required>
+      </div>
+
+      <div class="form-group">
+        <label for="card">Card Number</label>
+        <input type="text" id="card" placeholder="1234 5678 9012 3456" required>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label for="expiry">Expiry Date</label>
+          <input type="text" id="expiry" placeholder="MM/YY" required>
+        </div>
+        <div class="form-group">
+          <label for="cvv">Pin</label>
+          <input type="text" id="cvv" placeholder="1237" required>
+        </div>
+      </div>
+
+      <button type="submit" class="pay-btn" id="pay-btn">Pay Now</button>
+    </form>
+    <a href="/index"><button  style="width: 100%; padding: 15px; font-size: large; 
+        color: #fff; border-radius: 12px; border: none;
+        cursor: pointer; background-color: #696969; margin-top: 10px;">Continue Shopping</button></a>
+  </div>
+  
+  <script>
+    // Function to calculate and display the cart summary
+    function updateCartSummary() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const deliveryFee = Number(localStorage.getItem('deliveryFee')) || 0;
+
+      const totalItems = cart.length;
+      const totalPrice = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+      const shippingFee = totalItems > 0 ? deliveryFee : 0;
+      const grandTotal = totalPrice + shippingFee;
+
+      // Update the DOM elements with cart summary details
+      document.getElementById('item-count').textContent = `Items (${totalItems})`;
+      document.getElementById('item-total').textContent = `₦${totalPrice.toLocaleString()}`;
+      document.getElementById('shipping-fee').textContent = `₦${shippingFee.toLocaleString()}`;
+      document.getElementById('grand-total').textContent = `₦${grandTotal.toLocaleString()}`;
+    }
+
+    // Update the cart summary on page load
+    updateCartSummary();
+
+    // Handle payment form submission
+    document.getElementById('payment-form').addEventListener('submit', function(e) {
+      e.preventDefault(); // Prevent form submission for demo
+
+      // Example payment success logic (you should replace this with actual payment logic)
+      alert("Payment successful! Thank you for your purchase.");
+      finalizePurchase();
+    });
+
+    // Finalize the purchase by clearing cart and storing sold products
+    function finalizePurchase() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const soldProducts = JSON.parse(localStorage.getItem('soldProducts')) || [];
+
+      cart.forEach(item => {
+        soldProducts.push({
+          name: item.name,
+          price: item.price,
+          quantity: item.quantity,
+          date: new Date().toLocaleString()
+        });
+      });
+
+      localStorage.setItem('soldProducts', JSON.stringify(soldProducts));
+      localStorage.removeItem('cart');
+      window.location.href = "/thank-you.html"; // Redirect after purchase
+    }
+  </script>
+
+</body>
+</html>

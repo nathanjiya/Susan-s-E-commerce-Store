@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Admin Dashboard - Sales</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --orange: #ff6600;
+      --border: #ddd;
+      --dark: #333;
+      --transition: 0.3s ease;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #f7f7f7;
+      padding: 2rem;
+    }
+
+    h1 {
+      text-align: center;
+      color: var(--orange);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 2rem;
+      background: white;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    }
+
+    th, td {
+      padding: 1rem;
+      border-bottom: 1px solid #eee;
+      text-align: left;
+    }
+
+    th {
+      background: var(--orange);
+      color: white;
+    }
+
+    tr:last-child td {
+      border-bottom: none;
+    }
+
+    .total {
+      margin-top: 1.5rem;
+      font-weight: bold;
+      text-align: right;
+    }
+
+    a {
+      display: block;
+      text-align: center;
+      text-decoration: none;
+      color: #000;
+
+      border-radius: 8px;
+      width: fit-content;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* Header Layout */
+    
+    /* Hamburger Icon */
+    .hamburger {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+    }
+
+    /* Navigation Menu */
+    .site-header {
+  background-color: var(--white);
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.logo strong {
+  color: var(--orange);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.nav-menu ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+  color: var(--orange);
+}
+
+.nav-menu i {
+  margin-right: 6px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-menu ul {
+    flex-direction: column;
+    padding: 1rem 2rem;
+  }
+
+  .nav-menu.show {
+    display: block;
+  }
+}
+
+    
+
+    /* Cart & Icons */
+    .search-cart {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      font-size: 1.2rem;
+      color: #000000;
+    }
+
+    .search-cart i {
+      cursor: pointer;
+      transition: color var(--transition), transform var(--transition);
+    }
+
+    .search-cart i:hover {
+      color: var(--orange);
+      transform: scale(1.1);
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        background: white;
+        position: absolute;
+        top: 70px;
+        left: 0;
+        right: 0;
+        padding: 1rem 2rem;
+        border-top: 1px solid var(--border);
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.05);
+      }
+
+      .nav-menu.active {
+        display: flex;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      .search-cart {
+        margin-top: 1rem;
+        justify-content: space-evenly;
+        width: 100%;
+      }
+
+      .nav-menu .dropdown {
+        position: static;
+        margin-top: 0.5rem;
+        box-shadow: none;
+        border: none;
+        padding: 0;
+      }
+
+      .nav-menu .dropdown a {
+        padding: 0.3rem 0;
+      }
+    }
+
+    
+  </style>
+</head>
+<body>
+  <header class="site-header">
+  <div class="container">
+    <div class="logo">
+      <a href="{{ url_for('home') }}"><strong>Logo</strong></a>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="nav-menu" id="nav-menu">
+      <ul>
+        <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{{ url_for('shop') }}"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+
+        {% if session.get('is_admin') %}
+        <li><a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tools"></i> Dashboard</a></li>
+        {% endif %}
+
+        {% if session.get('user_id') %}
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li><a href="{{ url_for('signup') }}"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <h1>Sales Dashboard</h1>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Qty</th>
+        <th>Price (₦)</th>
+        <th>Total (₦)</th>
+        <th>Date Sold</th>
+      </tr>
+    </thead>
+    <tbody id="salesTable">
+      <!-- Filled by JS -->
+    </tbody>
+  </table>
+
+  <div class="total" id="totalRevenue"></div>
+
+
+  <script>
+  const salesTable = document.getElementById('salesTable');
+  const totalRevenue = document.getElementById('totalRevenue');
+
+  const allSoldProducts = JSON.parse(localStorage.getItem('soldProducts')) || [];
+
+  // Filter only products that were checked out
+  const soldProducts = allSoldProducts.filter(product => product.checkedOut);
+
+  let total = 0;
+
+  if (soldProducts.length === 0) {
+    salesTable.innerHTML = `<tr><td colspan="5" style="text-align:center; padding:1rem;">No sales data available</td></tr>`;
+  } else {
+    soldProducts.forEach(product => {
+      const row = document.createElement('tr');
+      const lineTotal = product.price * product.quantity;
+      total += lineTotal;
+
+      row.innerHTML = `
+        <td>${product.name}</td>
+        <td>${product.quantity}</td>
+        <td>₦${product.price.toLocaleString()}</td>
+        <td>₦${lineTotal.toLocaleString()}</td>
+        <td>${product.date}</td>
+      `;
+      salesTable.appendChild(row);
+    });
+  }
+
+  totalRevenue.textContent = `Total Revenue: ₦${total.toLocaleString()}`;
+
+  document.getElementById('hamburger').addEventListener('click', () => {
+    document.getElementById('nav-menu').classList.toggle('active');
+  });
+</script>
+
+</body>
+</html>

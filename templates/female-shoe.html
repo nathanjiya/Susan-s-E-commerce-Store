@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Susan's Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  <style>
+    :root {
+      --orange: #ff6600;
+      --dark: #222;
+      --light: #f9f9f9;
+      --border: #ddd;
+      --transition: 0.3s ease;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--light);
+      color: var(--dark);
+      line-height: 1.6;
+    }
+
+    .site-header {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.logo strong {
+  color: orange;
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.nav-menu ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+  color: var(--orange);
+}
+
+.nav-menu i {
+  margin-right: 6px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .main {
+    display: block;
+    padding: 1rem;
+  }
+
+  .nav-menu.active {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 70px;
+    left: 0;
+    width: 100%;
+    background: white;
+    padding: 2rem;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    z-index: 999;
+  }
+
+  aside {
+    transform: translateX(-100%);
+    position: fixed;
+    top: 70px;
+    left: 0;
+    height: 100vh;
+    width: 250px;
+    background: white;
+    padding: 2rem;
+    z-index: 998;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  aside.active {
+    transform: translateX(0);
+  }
+}
+
+    
+    .hamburger {
+      display: none;
+      font-size: 1.6rem;
+      cursor: pointer;
+      transition: transform var(--transition);
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 768px) {
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+      }
+    
+      .nav-menu.active {
+        display: flex;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: white;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1002;
+      }
+    
+      .hamburger {
+        display: block;
+      }
+    
+      .search-cart {
+        margin-top: 1rem;
+        width: 100%;
+        justify-content: flex-end;
+      }
+    }
+    
+
+    .main {
+      display: grid;
+      grid-template-columns: 250px 1fr;
+      padding: 2rem;
+      gap: 2rem;
+    }
+
+    aside {
+      background: white;
+      padding: 1.5rem;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      height: fit-content;
+      max-height: calc(100vh - 100px);
+      overflow-y: auto;
+      transition: transform var(--transition);
+    }
+
+    aside h2 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1.3rem;
+      color: var(--orange);
+    }
+
+    aside span {
+      display: block;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      transition: background var(--transition);
+    }
+
+    aside span:hover {
+      background: #f2f2f2;
+    }
+
+    .sizes {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 1rem;
+    }
+
+    .size {
+      background: var(--orange);
+      color: white;
+      padding: 0.4rem 0.8rem;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: background var(--transition);
+    }
+
+    .size:hover {
+      background: #e65c00;
+    }
+
+    .color,
+    .quantity {
+      margin-top: 1rem;
+    }
+
+    section.shop {
+      padding: 1rem 2rem;
+    }
+    
+
+    section.shop h2 {
+      font-size: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    section.shop input {
+      padding: 0.6rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      width: 100%;
+      max-width: 250px;
+    }
+
+    .product {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+    }
+
+    .items {
+      background: white;
+      padding: 1rem;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+      text-align: center;
+      transition: transform var(--transition), box-shadow var(--transition);
+    }
+
+    .items:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+    }
+
+    .items img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .items h3 {
+      margin: 0.5rem 0 0.3rem;
+      font-size: 1.1rem;
+    }
+
+    .items h4 {
+      color: var(--orange);
+      margin-bottom: 0.7rem;
+      font-size: 1rem;
+    }
+
+    .items button {
+      background: var(--orange);
+      color: white;
+      border: none;
+      padding: 0.5rem 1.2rem;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 0.95rem;
+      transition: background var(--transition);
+    }
+
+    .items button:hover {
+      background: #e65c00;
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        display: block;
+        padding: 1rem;
+      }
+
+      .nav-menu {
+        display: none;
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      .nav-menu.active {
+        display: block;
+        text-align: left;
+        float: left;
+        position: absolute;
+        top: 70px;
+        right: 20px;
+        background: white;
+        padding: 1rem;
+        border: 1px solid var(--border);
+        border-radius: 10px;
+        box-shadow: 0 5px 10px rgba(0, 0, 0, 0.1);
+        z-index: 1002;
+      }
+
+      .hamburger {
+        display: block;
+      }
+
+      aside {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        width: 250px;
+        transform: translateX(-100%);
+        z-index: 1001;
+        box-shadow: 2px 0 8px rgba(0, 0, 0, 0.1);
+        transition: transform var(--transition);
+      }
+
+      aside.active {
+        transform: translateX(0);
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+  <div class="container">
+    <div class="logo">
+      <a href="{{ url_for('home') }}"><strong>Logo</strong></a>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="nav-menu" id="nav-menu">
+      <ul>
+        <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{{ url_for('shop') }}"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+
+        {% if session.get('is_admin') %}
+        <li><a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tools"></i> Dashboard</a></li>
+        {% endif %}
+
+        {% if session.get('user_id') %}
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li><a href="{{ url_for('signup') }}"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+  <div class="main">
+    <aside id="sidebar">
+      <h2>Categories</h2>
+      <a href="/male-shoe"><span>Men's Shoes</span></a>
+      <a href="/female-shoe"><span>Female Shoes</span></a>
+      <span>Gowns</span>
+      <span>Unisex</span>
+      <a href="/female-shirts"><span>Female Shirts</span></a>
+      <a href="/men-shirt"><span>Male Shirts</span></a>
+      <a href="/trouser"><span>Trousers</span></a>
+      <span>Underwear</span>
+      <a href="/male-accessories"><span>Male Accessories</span></a>
+      <span>Female Accessories</span>
+      <span>Kids</span>
+
+      <div class="sizes">
+        <div class="size">S</div>
+        <div class="size">M</div>
+        <div class="size">L</div>
+        <div class="size">XL</div>
+      </div>
+
+      <div class="color">
+        <label>Color:</label>
+        <input type="color">
+      </div>
+
+      <div class="quantity">
+        <label>Quantity:</label>
+        <input type="range" min="1" max="10">
+      </div>
+    </aside>
+
+    <section class="shop">
+      <h2>Female Shoes</h2>
+      <div class="product">
+        <div class="items">
+          <img src="/static/female shoe 6.jpeg" alt="Black Shirt">
+          <h3>Shoes</h3>
+          <h4>N200</h4>
+          <a href="/female-shoe6"><button>Add to cart <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+        <div class="items">
+          <img src="/static/female shoe 5.jpeg" alt="Black Trouser">
+          <h3>Shoes</h3>
+          <h4>N250</h4>
+          <a href="/female-shoe5"><button>Add to cart <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+        <div class="items">
+          <img src="/static/female shoe 4.jpeg" alt="Men’s Shoes">
+          <h3>Shoes</h3>
+          <h4>N500</h4>
+          <a href="/female-shoe4"><button>Add to cart <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+        <div class="items">
+          <img src="/static/female shoe 3.jpeg" alt="Blue Trainers">
+          <h3>Shoes</h3>
+          <h4>N450</h4>
+          <a href="/female-shoe3"><button>Add to cart <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+        <div class="items">
+          <img src="/static/female shoe 2.jpeg" alt="Leather Belt">
+          <h3>Shoes</h3>
+          <h4>N150</h4>
+          <a href="/female-shoe2"><button>Add to cart <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+        <div class="items">
+          <img src="/static/female shoe 1.jpeg" alt="Richard Mille Watch">
+          <h3>Shoes</h3>
+          <h4>N1200</h4>
+          <a href="/female-shoe1"><button>Add to cart <i class="fas fa-shopping-cart"></i></button></a>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    const sidebar = document.getElementById('sidebar');
+
+    hamburger.addEventListener('click', () => {
+      navMenu.classList.toggle('active');
+      sidebar.classList.toggle('active');
+    });
+  </script>
+</body>
+</html>

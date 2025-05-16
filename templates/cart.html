@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Your Cart - Susan's Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ff6600;
+      --orange-dark: #e65c00;
+      --text-dark: #222;
+      --text-light: #555;
+      --bg-light: #fdfdfd;
+      --bg-white: #fff;
+      --border: #e0e0e0;
+      --transition: all 0.3s ease-in-out;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    .site-header {
+  background-color: white;
+  border-bottom: 1px solid #ddd;
+  padding: 1rem 2rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.logo strong {
+  color: var(--orange);
+  font-size: 1.8rem;
+  text-transform: uppercase;
+}
+
+.hamburger {
+  display: none;
+  font-size: 1.8rem;
+  cursor: pointer;
+}
+
+.nav-menu ul {
+  display: flex;
+  gap: 1.5rem;
+  list-style: none;
+}
+
+.nav-menu ul li a {
+  text-decoration: none;
+  color: var(--dark);
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-menu ul li a:hover {
+  color: var(--orange);
+}
+
+.nav-menu i {
+  margin-right: 6px;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+  .hamburger {
+    display: block;
+  }
+
+  .nav-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: white;
+    width: 100%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  }
+
+  .nav-menu ul {
+    flex-direction: column;
+    padding: 1rem 2rem;
+  }
+
+  .nav-menu.show {
+    display: block;
+  }
+}
+
+    .cart-container {
+      max-width: 1200px;
+      margin: 2rem auto;
+      padding: 2rem;
+      background: var(--bg-white);
+      border-radius: 14px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    h2 {
+      text-align: center;
+      font-size: 2.5rem;
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 2rem;
+    }
+
+    table th, table td {
+      padding: 1.2rem;
+      border-bottom: 1px solid var(--border);
+      text-align: center;
+    }
+
+    table th {
+      background: var(--bg-light);
+      font-weight: 600;
+    }
+
+    table img {
+      max-width: 100px;
+      border-radius: 6px;
+    }
+
+    .total {
+      text-align: right;
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-top: 1rem;
+      color: var(--orange);
+    }
+
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 2rem;
+      gap: 1rem;
+    }
+
+    .btn {
+      padding: 0.8rem 1.5rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: var(--transition);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn.continue {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .btn.continue:hover {
+      background-color: #bbb;
+    }
+
+    .btn.checkout {
+      background-color: var(--orange);
+      color: #fff;
+    }
+
+    .btn.checkout:hover {
+      background-color: var(--orange-dark);
+    }
+
+    .remove-btn {
+      background: transparent;
+      border: none;
+      color: var(--orange);
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .remove-btn:hover {
+      color: var(--orange-dark);
+      text-decoration: underline;
+    }
+
+    .cart-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 1.2rem;
+      padding: 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--bg-white);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .cart-item img {
+      max-width: 80px;
+    }
+
+    .cart-item-details {
+      flex: 1;
+      padding: 0 1rem;
+      text-align: left;
+    }
+
+    .cart-item-actions {
+      text-align: right;
+    }
+
+    .cart-item-actions p {
+      margin-bottom: 0.5rem;
+    }
+
+    .state-select {
+      margin-top: 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      width: 100%;
+      padding: 1rem;
+      border-radius: 8px;
+      border: 1px solid var(--border);
+    }
+
+    @media (max-width: 768px) {
+      .cart-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      table th, table td {
+        font-size: 0.9rem;
+        padding: 0.5rem;
+      }
+
+      .actions {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .btn {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container">
+    <div class="logo">
+      <a href="{{ url_for('home') }}"><strong>Logo</strong></a>
+    </div>
+
+    <div class="hamburger" id="hamburger">
+      <i class="fas fa-bars"></i>
+    </div>
+
+    <nav class="nav-menu" id="nav-menu">
+      <ul>
+        <li><a href="{{ url_for('home') }}"><i class="fas fa-home"></i> Home</a></li>
+        <li><a href="{{ url_for('shop') }}"><i class="fas fa-store"></i> Shop</a></li>
+        <li><a href="{{ url_for('contact') }}"><i class="fas fa-envelope"></i> Contact</a></li>
+        <li><a href="{{ url_for('cart') }}"><i class="fas fa-shopping-cart"></i> Cart</a></li>
+
+        {% if session.get('is_admin') %}
+        <li><a href="{{ url_for('admin_dashboard') }}"><i class="fas fa-tools"></i> Dashboard</a></li>
+        {% endif %}
+
+        {% if session.get('user_id') %}
+        <li><a href="{{ url_for('logout') }}"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        {% else %}
+        <li><a href="{{ url_for('login') }}"><i class="fas fa-sign-in-alt"></i> Login</a></li>
+        <li><a href="{{ url_for('signup') }}"><i class="fas fa-user-plus"></i> Sign Up</a></li>
+        {% endif %}
+      </ul>
+    </nav>
+  </div>
+</header>
+
+
+<main class="cart-container">
+  <h2>Your Cart</h2>
+  <div id="cart-items"></div>
+
+  <div class="totals">
+    <p id="subtotal-cost" class="total">Subtotal: ₦0</p>
+    <label for="state" class="state-select-label">Select Delivery State</label>
+    <select id="state" class="state-select" onchange="updateDeliveryPrice()">
+      <option value="0" data-price="0">Select State</option>
+      <option value="Lagos" data-price="500">Lagos - ₦500</option>
+      <option value="Abuja" data-price="700">Abuja - ₦700</option>
+      <option value="Kaduna" data-price="600">Kaduna - ₦600</option>
+      <option value="Port Harcourt" data-price="650">Port Harcourt - ₦650</option>
+      <option value="Kano" data-price="550">Kano - ₦550</option>
+    </select>
+    <p id="delivery-cost" class="total">Delivery: ₦0</p>
+    <p id="total-cost" class="total"><strong>Total: ₦0</strong></p>
+  </div>
+
+  <div class="actions">
+    <a href="/index"><button class="btn continue">Continue Shopping</button></a>
+    <a href="/payment"><button class="btn checkout">Proceed to Checkout</button></a>
+  </div>
+</main>
+
+<script>
+  function formatCurrency(amount) {
+    return `₦${amount.toFixed(2)}`;
+  }
+
+  function updateCartCount() {
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartCount = document.getElementById('cart-count');
+    if (cartCount) cartCount.innerText = cart.length;
+  }
+
+  function displayCartItems() {
+    const cartItemsDiv = document.getElementById('cart-items');
+    const subtotalCostDiv = document.getElementById('subtotal-cost');
+    const cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+    let subtotal = 0;
+    cartItemsDiv.innerHTML = '';
+
+    cart.forEach((item, index) => {
+      const itemTotal = item.price * item.quantity;
+      subtotal += itemTotal;
+
+      const div = document.createElement('div');
+      div.className = 'cart-item';
+
+      div.innerHTML = `
+        <img src="${item.image}" alt="${item.name}">
+        <div class="cart-item-details">
+          <p><strong>${item.name}</strong></p>
+          <p>₦${item.price}</p>
+          <p>Qty: ${item.quantity}</p>
+        </div>
+        <div class="cart-item-actions">
+          <p>${formatCurrency(itemTotal)}</p>
+          <button class="remove-btn" onclick="removeItem(${index})">Remove</button>
+        </div>
+      `;
+      cartItemsDiv.appendChild(div);
+    });
+
+    subtotalCostDiv.innerText = `Subtotal: ${formatCurrency(subtotal)}`;
+    updateDeliveryPrice();
+  }
+
+  function removeItem(index) {
+    let cart = JSON.parse(localStorage.getItem('cart')) || [];
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+    displayCartItems();
+    updateCartCount();
+  }
+
+  function updateDeliveryPrice() {
+    const stateSelect = document.getElementById('state');
+    const deliveryCostDiv = document.getElementById('delivery-cost');
+    const totalCostDiv = document.getElementById('total-cost');
+    const subtotalText = document.getElementById('subtotal-cost').innerText;
+    const subtotal = parseFloat(subtotalText.replace(/[^\d.]/g, ''));
+
+    const selectedOption = stateSelect.options[stateSelect.selectedIndex];
+    const deliveryFee = parseFloat(selectedOption.getAttribute('data-price')) || 0;
+
+    deliveryCostDiv.innerText = `Delivery: ${formatCurrency(deliveryFee)}`;
+    totalCostDiv.innerHTML = `<strong>Total: ${formatCurrency(subtotal + deliveryFee)}</strong>`;
+    
+    localStorage.setItem('deliveryFee', deliveryFee);
+
+  }
+
+  updateCartCount();
+  displayCartItems();
+
+  
+  const hamburger = document.getElementById('hamburger');
+  const navMenu = document.getElementById('nav-menu');
+
+  hamburger.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+  });
+
+
+</script>
+
+
+</body>
+</html>

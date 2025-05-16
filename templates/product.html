@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>{{ product.name }} - Susan's Store</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --orange: #ff6600;
+      --orange-dark: #e65c00;
+      --text-dark: #222;
+      --text-light: #555;
+      --bg-light: #fdfdfd;
+      --bg-white: #fff;
+      --border: #e0e0e0;
+      --transition: all 0.3s ease-in-out;
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg-light);
+      color: var(--text-dark);
+    }
+
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background: var(--bg-white);
+      padding: 1rem 2rem;
+      border-bottom: 1px solid var(--border);
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+      position: sticky;
+      top: 0;
+      z-index: 999;
+    }
+
+    .logo {
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: var(--orange);
+    }
+
+    .search-cart {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      font-size: 1.3rem;
+    }
+
+    .search-cart i {
+      color: var(--text-dark);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .search-cart i:hover {
+      color: var(--orange);
+      transform: scale(1.1);
+    }
+
+    .product-container {
+      display: flex;
+      flex-wrap: wrap;
+      padding: 2rem;
+      background: var(--bg-white);
+      margin: 2rem auto;
+      border-radius: 14px;
+      max-width: 1100px;
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    }
+
+    .product-image {
+      flex: 1;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    .product-image img {
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+    }
+
+    .product-details {
+      flex: 1;
+      padding: 1rem 2rem;
+    }
+
+    .product-details h2 {
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .product-details h4 {
+      color: var(--orange);
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .product-details p {
+      font-size: 1rem;
+      color: var(--text-light);
+      margin-bottom: 1.5rem;
+    }
+
+    .selectors {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .selectors label {
+      font-weight: 600;
+      margin-bottom: 0.3rem;
+      display: block;
+    }
+
+    .selectors select,
+    .selectors input[type="number"],
+    .selectors input[type="color"] {
+      padding: 0.65rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      width: 100%;
+      max-width: 260px;
+      background: var(--bg-light);
+      transition: var(--transition);
+    }
+
+    .selectors input[type="color"] {
+      height: 42px;
+      padding: 0;
+    }
+
+    .selectors select:focus,
+    .selectors input:focus {
+      border-color: var(--orange);
+      outline: none;
+    }
+
+    .btn-wrapper {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+      flex-wrap: wrap;
+    }
+
+    button {
+      padding: 0.9rem 1.8rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    button[type="submit"] {
+      background-color: var(--orange);
+      color: #fff;
+    }
+
+    button[type="submit"]:hover {
+      background-color: var(--orange-dark);
+    }
+
+    .back-btn {
+      background-color: #ccc;
+      color: #333;
+    }
+
+    .back-btn:hover {
+      background-color: #bbb;
+    }
+
+    @media (max-width: 768px) {
+      .product-container {
+        flex-direction: column;
+        margin: 1rem;
+        padding: 1rem;
+      }
+
+      .product-details {
+        padding: 1rem;
+      }
+
+      .btn-wrapper {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      button {
+        width: 100%;
+        justify-content: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="logo">Susan's Store</div>
+    <div class="search-cart">
+      <a href="/"><i class="fas fa-home" title="Home"></i></a>
+      <a href="/login"><i class="fas fa-user" title="Account"></i></a>
+      <a href="/cart"><i class="fas fa-shopping-cart" title="Cart"></i><span id="cart-count"></span></a>
+    </div>
+  </header>
+
+  <main class="product-container">
+    <div class="product-image">
+      <img src="{{ url_for('static', filename=product.image) }}" alt="{{ product.name }}">
+    </div>
+
+    <div class="product-details">
+      <h2>{{ product.name }}</h2>
+      <h4>{{ product.price }}</h4>
+      <p>This item is available for purchase. Choose your preferred options below.</p>
+
+      <form id="add-to-cart-form">
+        <input type="hidden" name="product_id" value="{{ product_id }}">
+        <div class="selectors">
+          <div>
+            <label for="size">Size</label>
+            <select id="size" name="size">
+              <option value="S">Small (S)</option>
+              <option value="M">Medium (M)</option>
+              <option value="L">Large (L)</option>
+              <option value="XL">Extra Large (XL)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="color">Color</label>
+            <input type="color" id="color" name="color" value="#000000"/>
+          </div>
+
+          <div>
+            <label for="quantity">Quantity</label>
+            <input type="number" id="quantity" name="quantity" min="1" max="10" value="1"/>
+          </div>
+        </div>
+
+        <div class="btn-wrapper">
+          <a href="/index"><button type="button" class="back-btn">← Back to Shop</button></a>
+          <button type="submit">Add to Cart <i class="fas fa-shopping-cart"></i></button>
+        </div>
+      </form>
+    </div>
+  </main>
+
+  <script>
+    function updateCartCount() {
+      const cart = JSON.parse(localStorage.getItem('cart')) || [];
+      const cartCount = document.getElementById('cart-count');
+      if (cartCount) cartCount.innerText = cart.length;
+    }
+
+    document.getElementById('add-to-cart-form').addEventListener('submit', function (e) {
+      e.preventDefault(); // Prevent form submission
+
+      const product = {
+        name: document.querySelector('.product-details h2').innerText,
+        price: parseInt(document.querySelector('.product-details h4').innerText.replace('₦', '').trim()),
+        size: document.getElementById('size').value,
+        color: document.getElementById('color').value,
+        quantity: parseInt(document.getElementById('quantity').value),
+        image: document.querySelector('.product-image img').src,
+      };
+
+      let cart = JSON.parse(localStorage.getItem('cart')) || [];
+      cart.push(product);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      updateCartCount();
+      alert('Product added to cart!');
+    });
+
+    updateCartCount();
+  </script>
+</body>
+</html>
