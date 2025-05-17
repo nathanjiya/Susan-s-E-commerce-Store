@@ -1,220 +1,295 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Daily Movies</title>
-    <style>
-        *{
-            margin: 0;
-            padding: 0;
-        }
-        body{
-            margin: 0;
-            padding: 0;
-            height: 100vh;
-            background: linear-gradient(to top, rgba(0,0,0,0.5)50%,rgba(0,0,0,0.5)50%), url(dark\ clothing\ bg2.jpg);
-            background-position: center;
-            background-size: cover;
-        }
-        .navbar{
-            width: 1200px;
-            height: 75px;
-            margin: auto;
-            display: flex;
-        }
-        .icon{
-            align-items: flex-start;
-            width: 110px;
-            height: 70px;
-            
-        }
-        .logo{
-            color: aliceblue;
-            font-size: 30px;
-            font-family: Arial, Helvetica, sans-serif;
-            padding-top: 5PX;
-            margin-top: 13px;
-        }
-        .menu{
-            width: 400px;
-            float: left;
-            height: 70px;
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Susan Store</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        }
-        ul{
-            display: flex;
-            justify-content: space-evenly;
-            align-items: center;
-        }
-        ul li{
-            list-style: none;
-            margin-top: 8px;
-            font-size: 14px;
-        }
-        ul li a{
-            text-decoration: none;
-            color: aliceblue;
-            font-family: Arial;
-            font-weight: bold;
-            transition: 0.4s;
-            margin-top: 15px;
-        }
-        ul li a:hover{
-        color: rgb(253, 169, 42);
-        }
-        a{
-            text-decoration: none;
-            color: #fff;
-            padding: 10px;
-            display: block;
-        }
-        .dropdown-content{
-            display: none;
+    body {
+      height: 100vh;
+      background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%), url('dark clothing bg2.jpg') center/cover no-repeat;
+      font-family: Arial, sans-serif;
+    }
 
-        }
-        .dropdown:hover .dropdown-content {
-            display: block;
-            position: absolute;
-            background: transparent;
-            border: 1px solid black;
-            min-width: 100px;
+    header {
+      width: 100%;
+      background: rgba(0,0,0,0.6);
+    }
 
-        }
-        .search{
-            display: flex;
-            width:500px;
-            float: left;
-            margin-left: 20px;
-            height: 55px;
-            align-items: center;
-            justify-content: center;
-        }
-        .srch{
-            font-family: 'Times New Roman', Times, serif;
-            width: 439px;
-            height: 20px;
-            border: 1px solid black;
-            background: transparent;
-            border-radius: 4px;
-            margin-top: 20px;
-            padding: 10px;
-            float: left;
-            font-size: 13px;
-            align-items: center;
-            background-color: #cfcfcf;
-            border: 1px solid #fff;
+    .navbar {
+      max-width: 1200px;
+      margin: auto;
+      padding: 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      position: relative;
+    }
 
-        }
-        .btn{
-            width: auto;
-            padding: 2px;
-            padding-left: 3px;
-            padding-right: 3px;
-            background-color: aliceblue;
-            align-items: center;
-            margin-top: 20px;
-            color: black;
-            border-radius: 4px;
-            margin-left: 4px;
-        }
-        .sign{
-            display: flex;
-            float: left;
-            margin-left: 20px;
-            height: 50px;
-            align-items: center;
-            justify-content: center;
-        }
-        .sign a button{
-            width: 50px;
-            padding: 4px;
-            padding-right: 5px;
-            padding-left: 5px ;
-            background-color: rgb(255, 170, 13);
-            align-items: center;
-            margin-top: 24px;
-            border-radius: 4px;
-            margin-left: 10px;
-            border: none;
-            box-shadow: rgba(0,0,0,0.9);
-        }
-        .sign a button:hover{
-            background-color: rgb(187, 121, 0);
-        }
-        .main{
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: aliceblue;
-            font-family: Arial, Helvetica, sans-serif;
-            height: 80vh;
-        }
-        .container{
-            display: block;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-        }
-        .main .container h1{
-            font-size: 1cm;
-            font-weight: bold;
-        }
-        .main .container p{
-            text-align: center;
-            margin-top: 10px;
-            font-weight: lighter;
-            font-family: serif;
-        }
-        .main .container a button{
-            justify-content: center;
-            margin-top: 20px;
-            padding: 8px;
-            width: 100px;
-            border-radius: 8px;
-            background-color: rgb(255, 166, 2);
-            
-        }
-    </style>
+    .logo {
+      color: #fff;
+      font-size: 28px;
+      font-weight: bold;
+    }
+
+    .menu {
+      display: flex;
+    }
+
+    .menu ul {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      list-style: none;
+      margin-top: 10px;
+    }
+
+    .menu ul li a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .menu ul li a:hover {
+      color: rgb(253, 169, 42);
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      background-color: rgba(0,0,0,0.8);
+      padding: 10px;
+      border-radius: 4px;
+    }
+
+    .dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 5px 0;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .dropdown-content a:hover {
+      color: rgb(253, 169, 42);
+    }
+
+    .search {
+      display: flex;
+      align-items: center;
+      margin-top: 10px;
+    }
+
+    .srch {
+      width: 100%;
+      max-width: 300px;
+      padding: 8px;
+      border: none;
+      border-radius: 4px;
+      background: #cfcfcf;
+      font-size: 14px;
+    }
+
+    .btn {
+      margin-left: 10px;
+      padding: 8px 12px;
+      background: aliceblue;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .sign a button {
+      margin-left: 10px;
+      padding: 8px 16px;
+      background: rgb(255, 170, 13);
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .sign a button:hover {
+      background: rgb(187, 121, 0);
+    }
+
+    .main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      height: calc(100vh - 100px);
+      padding: 20px;
+      color: #fff;
+    }
+
+    .container h1 {
+      font-size: 2.5rem;
+      margin-bottom: 15px;
+    }
+
+    .container p {
+      font-size: 1.1rem;
+      margin-bottom: 20px;
+    }
+
+    .container a button {
+      padding: 10px 20px;
+      font-size: 1rem;
+      background: rgb(255, 166, 2);
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .container a button:hover {
+      background: rgb(187, 121, 0);
+    }
+
+    /* Hamburger */
+    .hamburger {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      gap: 5px;
+    }
+
+    .hamburger span {
+      width: 25px;
+      height: 3px;
+      background: #fff;
+      transition: 0.3s;
+    }
+
+    /* ---------- MEDIA QUERIES ---------- */
+    @media (max-width: 768px) {
+      .menu,
+      .search,
+      .sign {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+      }
+
+      .menu.active,
+      .search.active,
+      .sign.active {
+        display: flex;
+        margin-top: 10px;
+      }
+
+      .menu ul {
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+      }
+
+      .search {
+        margin-top: 10px;
+      }
+
+      .hamburger {
+        display: flex;
+      }
+
+      .main {
+        height: auto;
+        padding: 40px 20px;
+      }
+
+      .container h1 {
+        font-size: 2rem;
+      }
+
+      .container p {
+        font-size: 1rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container h1 {
+        font-size: 1.5rem;
+      }
+
+      .container p {
+        font-size: 0.95rem;
+      }
+
+      .container a button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+      }
+    }
+  </style>
 </head>
 <body>
-    <header>
-        <div class="navbar">
-            <div class="icon">
-                <h2 class="logo">Logo</h2>
-            </div>
-            <div class="menu">
-                <ul>
-                    <li><a href="#">Home</a></li>
-                    <li class="dropdown"><a href="#">Categories</a>
-                    <div class="dropdown-content">
-                        <a href="#">Kids</a>
-                        <a href="#">Shirts</a>
-                        <a href="#">Trousers</a>
+  <header>
+    <div class="navbar">
+      <h2 class="logo">Logo</h2>
 
+      <!-- Hamburger Icon -->
+      <div class="hamburger" onclick="toggleMenu()">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
 
-                    </div>
-                    <li><a href="#">New Arrivals</a></li>
-                    <li><a href="#">About</a></li>
-                    <li><a href="#">Shop</a></li>
-                </ul>
+      <!-- Navigation Menu -->
+      <div class="menu" id="menu">
+        <ul>
+          <li><a href="#">Home</a></li>
+          <li class="dropdown">
+            <a href="#">Categories</a>
+            <div class="dropdown-content">
+              <a href="#">Kids</a>
+              <a href="#">Shirts</a>
+              <a href="#">Trousers</a>
             </div>
-            <div class="search">
-                <input class="srch" type="search" placeholder="Search...">
-                <button class="btn">Search</button>
-            </div>
-            <div class="sign">
-                <a href="#"><button>Login</button></a>
-            </div>
-        </div>
-    </header>
-    <div class="main">
-            <section class="container">
-                <h1>Welcome to Susan's Collection!</h1>
-                <p> Clothing that Speaks Volumes </p>
-                <a href="#"><button>View Store</button></a>
-            </section>
+          </li>
+          <li><a href="#">New Arrivals</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Shop</a></li>
+        </ul>
+      </div>
 
+      <!-- Search -->
+      <div class="search" id="search">
+        <input class="srch" type="search" placeholder="Search..." />
+        <button class="btn">Search</button>
+      </div>
+
+      <!-- Sign In -->
+      <div class="sign" id="sign">
+        <a href="#"><button>Login</button></a>
+      </div>
     </div>
+  </header>
+
+  <div class="main">
+    <section class="container">
+      <h1>Welcome to Susan's Collection!</h1>
+      <p>Clothing that Speaks Volumes</p>
+      <a href="#"><button>View Store</button></a>
+    </section>
+  </div>
+
+  <!-- Script for Hamburger -->
+  <script>
+    function toggleMenu() {
+      document.getElementById('menu').classList.toggle('active');
+      document.getElementById('search').classList.toggle('active');
+      document.getElementById('sign').classList.toggle('active');
+    }
+  </script>
 </body>
 </html>
