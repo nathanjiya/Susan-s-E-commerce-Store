@@ -5,6 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Susan Store</title>
   <style>
+    :root {
+      --primary-color: #fca311;
+      --primary-dark: #bb7b00;
+      --text-light: #fff;
+      --bg-overlay: rgba(0, 0, 0, 0.6);
+      --transition-speed: 0.3s;
+      --font-main: 'Segoe UI', Arial, sans-serif;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,114 +22,127 @@
 
     body {
       height: 100vh;
-      background: linear-gradient(to top, rgba(0,0,0,0.5)50%, rgba(0,0,0,0.5)50%), url('dark clothing bg2.jpg') center/cover no-repeat;
-      font-family: Arial, sans-serif;
+      background: linear-gradient(to top, rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('dark clothing bg2.jpg') center/cover no-repeat;
+      font-family: var(--font-main);
+      color: var(--text-light);
     }
 
     header {
-      width: 100%;
-      background: rgba(0,0,0,0.6);
+      background: var(--bg-overlay);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }
 
     .navbar {
       max-width: 1200px;
       margin: auto;
-      padding: 10px 20px;
+      padding: 1rem 2rem;
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
-      position: relative;
     }
 
     .logo {
-      color: #fff;
-      font-size: 28px;
+      font-size: 1.8rem;
       font-weight: bold;
-    }
-
-    .menu {
-      display: flex;
+      color: var(--primary-color);
     }
 
     .menu ul {
       display: flex;
-      flex-wrap: wrap;
-      gap: 20px;
+      gap: 1.5rem;
       list-style: none;
-      margin-top: 10px;
     }
 
     .menu ul li a {
+      color: var(--text-light);
       text-decoration: none;
-      color: #fff;
-      font-weight: bold;
-      transition: 0.3s;
+      font-weight: 500;
+      transition: color var(--transition-speed);
     }
 
-    .menu ul li a:hover {
-      color: rgb(253, 169, 42);
+    .menu ul li a:hover,
+    .dropdown-content a:hover {
+      color: var(--primary-color);
+    }
+
+    .dropdown {
+      position: relative;
     }
 
     .dropdown-content {
       display: none;
       position: absolute;
-      background-color: rgba(0,0,0,0.8);
-      padding: 10px;
-      border-radius: 4px;
+      background: var(--bg-overlay);
+      border-radius: 6px;
+      padding: 0.5rem 1rem;
+      top: 100%;
+      left: 0;
+      min-width: 150px;
+      z-index: 999;
+    }
+
+    .dropdown-content a {
+      display: block;
+      padding: 0.4rem 0;
+      color: var(--text-light);
+      text-decoration: none;
     }
 
     .dropdown:hover .dropdown-content {
       display: block;
     }
 
-    .dropdown-content a {
+    .dropdown-content.show {
       display: block;
-      padding: 5px 0;
-      color: #fff;
-      text-decoration: none;
-    }
-
-    .dropdown-content a:hover {
-      color: rgb(253, 169, 42);
     }
 
     .search {
       display: flex;
       align-items: center;
-      margin-top: 10px;
+      gap: 0.5rem;
     }
 
     .srch {
-      width: 100%;
-      max-width: 300px;
-      padding: 8px;
-      border: none;
+      padding: 0.5rem 0.75rem;
       border-radius: 4px;
-      background: #cfcfcf;
-      font-size: 14px;
+      border: none;
+      background: #e0e0e0;
+      color: #333;
+      font-size: 0.9rem;
+      width: 200px;
     }
 
     .btn {
-      margin-left: 10px;
-      padding: 8px 12px;
-      background: aliceblue;
+      padding: 0.5rem 1rem;
+      background: var(--primary-color);
+      color: #fff;
       border: none;
       border-radius: 4px;
       cursor: pointer;
+      transition: background var(--transition-speed);
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
     }
 
     .sign a button {
-      margin-left: 10px;
-      padding: 8px 16px;
-      background: rgb(255, 170, 13);
+      padding: 0.5rem 1.2rem;
+      background: var(--primary-color);
       border: none;
+      color: white;
       border-radius: 4px;
+      font-weight: bold;
       cursor: pointer;
+      transition: background var(--transition-speed);
     }
 
     .sign a button:hover {
-      background: rgb(187, 121, 0);
+      background: var(--primary-dark);
     }
 
     .main {
@@ -129,34 +151,35 @@
       justify-content: center;
       text-align: center;
       height: calc(100vh - 100px);
-      padding: 20px;
-      color: #fff;
+      padding: 2rem;
     }
 
     .container h1 {
-      font-size: 2.5rem;
-      margin-bottom: 15px;
+      font-size: 2.8rem;
+      margin-bottom: 1rem;
+      color: var(--primary-color);
     }
 
     .container p {
-      font-size: 1.1rem;
-      margin-bottom: 20px;
+      font-size: 1.2rem;
+      margin-bottom: 2rem;
     }
 
     .container a button {
-      padding: 10px 20px;
+      padding: 0.75rem 1.5rem;
       font-size: 1rem;
-      background: rgb(255, 166, 2);
+      background: var(--primary-color);
+      color: white;
       border: none;
       border-radius: 6px;
       cursor: pointer;
+      transition: background var(--transition-speed);
     }
 
     .container a button:hover {
-      background: rgb(187, 121, 0);
+      background: var(--primary-dark);
     }
 
-    /* Hamburger */
     .hamburger {
       display: none;
       flex-direction: column;
@@ -167,12 +190,15 @@
     .hamburger span {
       width: 25px;
       height: 3px;
-      background: #fff;
+      background: white;
       transition: 0.3s;
     }
 
-    /* ---------- MEDIA QUERIES ---------- */
     @media (max-width: 768px) {
+      .hamburger {
+        display: flex;
+      }
+
       .menu,
       .search,
       .sign {
@@ -190,21 +216,24 @@
 
       .menu ul {
         flex-direction: column;
-        gap: 10px;
-        width: 100%;
+        align-items: flex-start;
       }
 
-      .search {
-        margin-top: 10px;
+      .dropdown-content {
+        position: static;
+        margin-left: 1rem;
+        background: transparent;
+        padding: 0;
       }
 
-      .hamburger {
-        display: flex;
+      .dropdown-content a {
+        padding: 0.4rem 1rem;
+        color: var(--primary-color);
       }
 
       .main {
         height: auto;
-        padding: 40px 20px;
+        padding: 3rem 1rem;
       }
 
       .container h1 {
@@ -227,7 +256,7 @@
 
       .container a button {
         font-size: 0.9rem;
-        padding: 8px 16px;
+        padding: 0.6rem 1.2rem;
       }
     }
   </style>
@@ -235,22 +264,20 @@
 <body>
   <header>
     <div class="navbar">
-      <h2 class="logo">Logo</h2>
+      <h2 class="logo">Susan's Collection</h2>
 
-      <!-- Hamburger Icon -->
       <div class="hamburger" onclick="toggleMenu()">
         <span></span>
         <span></span>
         <span></span>
       </div>
 
-      <!-- Navigation Menu -->
       <div class="menu" id="menu">
         <ul>
           <li><a href="#">Home</a></li>
           <li class="dropdown">
-            <a href="#">Categories</a>
-            <div class="dropdown-content">
+            <a href="#" onclick="toggleDropdown(event)">Categories</a>
+            <div class="dropdown-content" id="dropdownContent">
               <a href="#">Kids</a>
               <a href="#">Shirts</a>
               <a href="#">Trousers</a>
@@ -262,13 +289,11 @@
         </ul>
       </div>
 
-      <!-- Search -->
       <div class="search" id="search">
         <input class="srch" type="search" placeholder="Search..." />
         <button class="btn">Search</button>
       </div>
 
-      <!-- Sign In -->
       <div class="sign" id="sign">
         <a href="#"><button>Login</button></a>
       </div>
@@ -283,12 +308,17 @@
     </section>
   </div>
 
-  <!-- Script for Hamburger -->
   <script>
     function toggleMenu() {
       document.getElementById('menu').classList.toggle('active');
       document.getElementById('search').classList.toggle('active');
       document.getElementById('sign').classList.toggle('active');
+    }
+
+    function toggleDropdown(event) {
+      event.preventDefault();
+      const dropdown = document.getElementById('dropdownContent');
+      dropdown.classList.toggle('show');
     }
   </script>
 </body>
